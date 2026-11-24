@@ -9,9 +9,10 @@ body {
   background-color: #f8fafc;
   color: #0f172a;
   line-height: 1.5;
+  overflow-x: hidden; /* Prevents accidental horizontal scrolling */
 }
 
-/*Sticky Navbar using Flexbox */
+/* Sticky Navbar using Flexbox */
 .navbar {
   position: sticky;
   top: 0;
@@ -19,20 +20,24 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem 5%;
   background-color: brown;
   color: white;
 }
 
 .logo {
   font-weight: bold;
-  font-size: 1.3rem;
-  letter-spacing: 1px;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  letter-spacing: 0.0625rem;
 }
 
 .nav-links {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
 }
 
 .nav-links a {
@@ -46,74 +51,104 @@ body {
   background-color: #1e293b;
   color: white;
   text-align: center;
-  padding: 60px 20px;
+  padding: clamp(2.5rem, 6vw, 4rem) 5%;
 }
 
 .hero h1 {
-  font-size: 2.2rem;
-  margin-bottom: 10px;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: 0.625rem;
 }
 
-/* Grid for Page Skeleton */
+.hero p {
+  font-size: clamp(0.95rem, 2vw, 1.125rem);
+}
+
+/* 3-Column Desktop Grid (1440px) */
 .magazine-grid {
-  max-width: 1100px;
-  margin: 30px auto;
-  padding: 0 20px;
+  width: 90%;
+  max-width: 68.75rem; /* 1100px equivalent in rem */
+  margin: 2rem auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 1.25rem;
 }
 
-.card, .sidebar {
+.card,
+.sidebar {
   background: white;
-  padding: 24px;
+  padding: clamp(1.125rem, 2.5vw, 1.5rem);
   border: 1px solid #cbd5e1;
-  border-radius: 6px;
+  border-radius: 0.375rem;
 }
 
-.card h2, .card h3, .sidebar h3 {
-  margin-bottom: 10px;
+.card h2 {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  margin-bottom: 0.625rem;
+  padding-right: 5.5rem; /* Keeps heading clear of the FEATURED badge */
 }
 
-/* Featured article spans 2 columns */
+.card h3,
+.sidebar h3 {
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  margin-bottom: 0.625rem;
+}
+
+/* Featured article spans 2 columns on desktop */
 .featured {
   grid-column: span 2;
-  position: relative; /* Anchor for the absolute badge */
+  position: relative;
   background-color: #eff6ff;
   border-color: #93c5fd;
 }
 
-/* 3. One position: absolute element */
+/* Position: absolute badge */
 .badge {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 1rem;
+  right: 1rem;
   background-color: #dc2626;
   color: white;
   font-size: 0.75rem;
   font-weight: bold;
-  padding: 4px 10px;
-  border-radius: 4px;
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.25rem;
 }
 
 .sidebar ul {
   list-style: none;
-  margin-top: 12px;
+  margin-top: 0.75rem;
 }
 
 .sidebar li {
-  padding: 8px 0;
+  padding: 0.5rem 0;
   border-bottom: 1px solid #e2e8f0;
 }
 
-/* 4. Reflow to 1 column under 640px */
-@media (max-width: 640px) {
+/* Breakpoint 1: Collapse from 3 -> 2 columns for Tablet (includes 768px) */
+@media (max-width: 900px) {
+  .magazine-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Featured article spans full width (both columns) at the top */
+  .featured {
+    grid-column: span 2;
+  }
+}
+
+/* Breakpoint 2: Collapse from 2 -> 1 column for Mobile (includes 360px) */
+@media (max-width: 600px) {
   .navbar {
     flex-direction: column;
-    gap: 10px;
+    text-align: center;
+  }
+
+  .nav-links {
+    gap: 0.75rem 1rem;
   }
 
   .magazine-grid {
+    width: 92%;
     grid-template-columns: 1fr;
   }
 
